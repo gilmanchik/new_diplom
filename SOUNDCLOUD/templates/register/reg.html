@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ title }}</h1>
+<form action="{% url 'register:reg' %}" method="post">
+    {% csrf_token %}
+    {% for f in form %}
+    <p><label for="{{f.id_for_label }}" class="form-label">{{ f.label }}</label>{{ f }}</p>
+    {% endfor %}
+    <button type="submit">Зарегистрироваться</button>
+</form>
+{% endblock %}

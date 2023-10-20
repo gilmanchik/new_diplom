@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="shortcut icon" href="{% static 'img/icon.png' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+</head>
+<body>
+{% block header %}
+<header>
+    <div class="left-menu">
+        <span><a href="{% url 'main:home' %}"><img src="{% static 'img/logo.png' %}" alt="logo"></a></span>
+        {% for i in menu %}
+        <span style="margin-left: 30px;"><a href="{% url i.url_name %}">{{ i.title }}</a></span>
+        {% endfor %}
+    </div>
+    <div class="right-menu">
+        {% if request.user.is_authenticated %}
+        <span>{{ username }} | <a href="{% url 'register:logout' %}">Выйти</a></span>
+        {% else %}
+        <span><a href="{% url 'register:login' %}">Войти</a>|<a href="{% url 'register:reg' %}">Регистрация</a></span>
+        {% endif %}
+    </div>
+</header>
+{% endblock %}
+
+{% block aside %}
+<aside>
+    <ul>
+        <li><a href="{% url 'main:home' %}">Все категории</a></li>
+        {% for i in cats %}
+            <li><a href="{{ i.get_absolute_url }}">{{ i.title }}</a></li>
+        {% endfor %}
+    </ul>
+</aside>
+{% endblock %}
+{% block content %}
+{% endblock %}
+{% if page_obj.has_other_pages %}
+<nav class="list-pages">
+    {% if page_obj.has_previous %}
+    <li class="page-num"><a href="?page={{ page_obj.previous_page_number }}">&lt;</a></li>
+    {% endif %}
+    <ul>
+    {% for p in paginator.page_range %}
+        {% if page_obj.number == p %}
+        <li class="page-num page-num-selected">{{ p }}</li>
+        {% elif p >= page_obj.number|add:-1 and p <= page_obj.number|add:1 %}
+        <li class="page-num"><a href="?page={{ p }}">{{ p }}</a></li>
+        {% endif %}
+    {% endfor %}
+    {% if page_obj.has_next %}
+    <li class="page-num"><a href="?page={{ page_obj.next_page_number }}">&gt;</a></li>
+    {% endif %}
+    </ul>
+</nav>
+{% endif %}
+</body>
+</html>
