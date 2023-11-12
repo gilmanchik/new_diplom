@@ -4,19 +4,18 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from .forms import *
-from main.models import *
+from .utils import *
 
 
-class RegisterUser(CreateView):
+class RegisterUser(DataMixin, CreateView):
     form_class = RegisterUser
     template_name = 'register/reg.html'
     success_url = reverse_lazy('register:login')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Регистрация'
-        context['cats'] = Categories.objects.all()
-        return context
+        context2 = self.get_user_context(title='Регистрация')
+        return context | context2
 
     def form_valid(self, form):
         user = form.save()
@@ -24,15 +23,14 @@ class RegisterUser(CreateView):
         return redirect('main:home')
 
 
-class LoginUser(LoginView):
+class LoginUser(DataMixin, LoginView):
     form_class = LoginUserForm
     template_name = 'register/login.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Авторизация'
-        context['cats'] = Categories.objects.all()
-        return context
+        context2 = self.get_user_context(title='Войти')
+        return context | context2
 
     def get_success_url(self):
         return reverse_lazy('main:home')

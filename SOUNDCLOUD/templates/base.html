@@ -6,6 +6,28 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <meta charset="UTF-8">
     <title>{{ title }}</title>
+    <script>
+        let audioNL = document.querySelectorAll('audio');
+        let audio = Array.apply(null, audioNL);
+
+        audio.forEach(t => {
+            let index = audio.indexOf(t);
+
+            t.addEventListener('play', ()=> {
+                audio.forEach(subT => {
+                    subT !== audio[index] ?
+                    (subT.pause(), subT.currentTime = 0) :
+                    subT.play()
+                })
+            })
+            t.addEventListener('ended', ()=> {
+                t.currentTime = 0;
+                index !== audio.length - 1 ?
+                    audio[index + 1].play() :
+                    null
+            })
+        });
+    </script>
 </head>
 <body>
 {% block header %}
@@ -18,9 +40,9 @@
     </div>
     <div class="right-menu">
         {% if request.user.is_authenticated %}
-        <span>{{ username }} | <a href="{% url 'register:logout' %}">Выйти</a></span>
+        <span>{{ user.username }} | <a href="{% url 'register:logout' %}">Выйти</a></span>
         {% else %}
-        <span><a href="{% url 'register:login' %}">Войти</a>|<a href="{% url 'register:reg' %}">Регистрация</a></span>
+        <span><a href="{% url 'register:login' %}">Войти</a></span>
         {% endif %}
     </div>
 </header>

@@ -10,6 +10,7 @@
             </span>
             <span class="zapis"><p>{{ i.release }}</p></span>
             <span class="zapis"><p>{{ i.cat }}</p></span>
+            <span class="zapis"><p><audio controls><source src="{{ i.soundfile.url }}"></audio></p></span>
         </div>
         {% endfor %}
 {% endblock %}
