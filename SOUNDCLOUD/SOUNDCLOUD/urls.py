@@ -5,8 +5,9 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('login/', include('register.urls')),
+    path('my_audio/', include('myaudio.urls', namespace='myaudio')),
     path('', include('main.urls')),
-    path('login/', include('register.urls'))
 ]
 
 if settings.DEBUG:

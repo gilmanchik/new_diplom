@@ -37,6 +37,9 @@
         {% for i in menu %}
         <span style="margin-left: 30px;"><a href="{% url i.url_name %}">{{ i.title }}</a></span>
         {% endfor %}
+        {% if request.user.is_authenticated %}
+        <span style="margin-left: 30px;"><a href="{% url 'myaudio:myaudiolist' %}">Мои аудио</a></span>
+        {% endif %}
     </div>
     <div class="right-menu">
         {% if request.user.is_authenticated %}

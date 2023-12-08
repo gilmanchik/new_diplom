@@ -45,3 +45,6 @@ class AddMusic(DataMixin, LoginRequiredMixin, CreateView):
         context = super().get_context_data(**kwargs)
         context2 = self.get_user_context(title='Добавление трека')
         return context | context2
+
+
+

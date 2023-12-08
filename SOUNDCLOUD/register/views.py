@@ -10,7 +10,6 @@ from .utils import *
 class RegisterUser(DataMixin, CreateView):
     form_class = RegisterUser
     template_name = 'register/reg.html'
-    success_url = reverse_lazy('register:login')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
