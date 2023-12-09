@@ -11,10 +11,10 @@ from .utils import *
 def music_add(request, music_id):
     music = Music.objects.get(id=music_id)
 
-    if music not in MyMusic.objects.filter(user=request.user):
+    if not MyMusic.objects.filter(user=request.user, music=music).exists():
         MyMusic.objects.create(user=request.user, music=music)
     else:
-        return None
+        pass
     return redirect(request.META['HTTP_REFERER'])
 
 

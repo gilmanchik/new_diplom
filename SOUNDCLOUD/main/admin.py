@@ -4,9 +4,8 @@ from .models import *
 
 @admin.register(Music)
 class MusicAdmin(admin.ModelAdmin):
-    list_display = ['id', 'title', 'author', 'slug', 'image', 'soundfile', 'release', 'cat']
+    list_display = ['id', 'title', 'author', 'slug', 'image', 'soundfile', 'cat']
     prepopulated_fields = {'slug': ('title',)}
-    ordering = ['release']
 
 
 @admin.register(Categories)

@@ -53,10 +53,6 @@ class Music(models.Model):
         verbose_name='Трек'
     )
 
-    release = models.DateTimeField(
-        verbose_name='Дата выхода'
-    )
-
     cat = models.ForeignKey(
         Categories,
         verbose_name='Категория',
