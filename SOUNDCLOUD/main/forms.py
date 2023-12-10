@@ -15,6 +15,7 @@ class AddMusicForm(forms.ModelForm):
         }
 
     def clean_soundfile(self):
+        print(self.cleaned_data)
         cd = str(self.cleaned_data['soundfile'])
         mp3 = cd.split('.')
         if mp3[-1] != 'mp3':

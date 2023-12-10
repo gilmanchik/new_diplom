@@ -9,7 +9,7 @@
                 <p>{{ i.author }}</p>
             </span>
             <span class="zapis"><p>{{ i.cat }}</p></span>
-<!--            <span class="zapis"><p><audio controls><source src="{{ i.soundfile.url }}"></audio></p></span>-->
+            <span class="zapis"><p><audio controls><source src="{{ i.soundfile.url }}"></audio></p></span>
             <span class="zapis">
                 <form action="{% url 'myaudio:music_add' i.id %}" method="post">
                     {% csrf_token %}

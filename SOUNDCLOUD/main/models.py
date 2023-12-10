@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.utils.text import slugify
 
 
 class Categories(models.Model):
@@ -40,7 +41,8 @@ class Music(models.Model):
     slug = models.SlugField(
         max_length=32,
         verbose_name='слаг',
-        unique=True
+        unique=True,
+        blank=True
     )
 
     image = models.ImageField(
@@ -56,7 +58,8 @@ class Music(models.Model):
     cat = models.ForeignKey(
         Categories,
         verbose_name='Категория',
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        blank=True
     )
 
     class Meta:
@@ -66,3 +69,8 @@ class Music(models.Model):
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
