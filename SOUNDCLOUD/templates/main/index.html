@@ -1,15 +1,19 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
         {% for i in posts %}
         <div class="track">
-            <span class="zapis"><img src="{{ i.image.url }}" alt="{{ i.title }}"></span>
+            {% if i.image %}
+            <span class="zapis"><img src="{{ i.image.url }}" alt="#"></span>
+            {% else %}
+            <span class="zapis"><img src="{% static 'img/logo.png' %}" alt="#"></span>
+            {% endif %}
             <span class="zapis">
                 <p>{{ i.title }}</p>
                 <p>{{ i.author }}</p>
             </span>
             <span class="zapis"><p>{{ i.cat }}</p></span>
-            <span class="zapis"><p><audio controls><source src="{{ i.soundfile.url }}"></audio></p></span>
+<!--            <span class="zapis"><p><audio controls><source src="{{ i.soundfile.url }}"></audio></p></span>-->
             <span class="zapis">
                 <form action="{% url 'myaudio:music_add' i.id %}" method="post">
                     {% csrf_token %}

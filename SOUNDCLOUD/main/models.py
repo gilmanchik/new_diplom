@@ -47,12 +47,14 @@ class Music(models.Model):
 
     image = models.ImageField(
         upload_to='photos/%Y/%m/%d',
-        verbose_name='Постер'
+        verbose_name='Постер',
+        blank=True
     )
 
     soundfile = models.FileField(
         upload_to='sound/%Y/%m/%d',
-        verbose_name='Трек'
+        verbose_name='Трек',
+        blank=True
     )
 
     cat = models.ForeignKey(
@@ -71,6 +73,8 @@ class Music(models.Model):
         return self.title
 
     def save(self, *args, **kwargs):
+        print('!!!------!!!!')
+        super(Music, self).save(*args, **kwargs)
         if not self.slug:
-            self.slug = slugify(self.title)
-        super().save(*args, **kwargs)
+            self.slug = slugify(self.title) + f'{self.author}' + f'{self.pk}'
+            super().save(*args, **kwargs)

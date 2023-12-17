@@ -15,8 +15,10 @@ class AddMusicForm(forms.ModelForm):
         }
 
     def clean_soundfile(self):
-        print(self.cleaned_data)
+        work_obj = self.cleaned_data['soundfile']
         cd = str(self.cleaned_data['soundfile'])
         mp3 = cd.split('.')
         if mp3[-1] != 'mp3':
             raise forms.ValidationError('Неверный формат аудиофайла')
+        else:
+            return work_obj
