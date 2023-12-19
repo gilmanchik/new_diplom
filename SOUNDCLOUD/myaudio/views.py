@@ -7,24 +7,6 @@ from .models import *
 from .utils import *
 
 
-@require_POST
-def music_add(request, music_id):
-    music = Music.objects.get(id=music_id)
-
-    if not MyMusic.objects.filter(user=request.user, music=music).exists():
-        MyMusic.objects.create(user=request.user, music=music)
-    else:
-        pass
-    return redirect(request.META['HTTP_REFERER'])
-
-
-@require_POST
-def music_remove(request, music_id):
-    music = Music.objects.get(id=music_id)
-    MyMusic.objects.filter(user=request.user, music=music).delete()
-    return redirect(request.META['HTTP_REFERER'])
-
-
 # class MyAudioList(DataMixin, ListView):
 #     model = MyMusic
 #     template_name = 'myaudio/myaudio.html'
@@ -43,4 +25,9 @@ def my_music_list(request):
         {'title': 'Добавить трек', 'url_name': 'main:add'}
     ]
     cats = Categories.objects.all()
-    return render(request, 'myaudio/myaudio.html', {'my_music': my_music, 'menu': menu, 'cats': cats})
+    context = {'my_music': my_music,
+               'menu': menu,
+               'cats': cats,
+               'title': "Мои аудиозаписи"
+               }
+    return render(request, 'myaudio/myaudio.html', context)

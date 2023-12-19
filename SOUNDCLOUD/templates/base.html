@@ -43,7 +43,7 @@
     </div>
     <div class="right-menu">
         {% if request.user.is_authenticated %}
-        <span>{{ user.username }} | <a href="{% url 'register:logout' %}">Выйти</a></span>
+        <span><a href="{% url 'register:profile' %}">{{ user.username }}</a> | <a href="{% url 'register:logout' %}">Выйти</a></span>
         {% else %}
         <span><a href="{% url 'register:login' %}">Войти</a></span>
         {% endif %}

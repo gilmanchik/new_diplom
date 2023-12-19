@@ -135,3 +135,15 @@ INTERNAL_IPS = [
     '127.0.0.1'
 ]
 
+LOGIN_REDIRECT_URL = 'main:home'
+LOGIN_URL = 'register:login'
+LOGOUT_REDIRECT_URL = 'main:home'
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'register.authenticated.EmailBackend'
+]
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+AUTH_USER_MODEL = 'register.User'
+

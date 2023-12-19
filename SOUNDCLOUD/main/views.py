@@ -39,7 +39,10 @@ class AddMusic(DataMixin, LoginRequiredMixin, CreateView):
     form_class = AddMusicForm
     template_name = 'main/addmusic.html'
     success_url = reverse_lazy('main:home')
-    login_url = 'register:login'
+
+    def form_valid(self, form):
+        w = form.save(commit=False)
+        return super(AddMusic, self).form_valid(form)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

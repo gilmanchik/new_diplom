@@ -54,7 +54,8 @@ class Music(models.Model):
     soundfile = models.FileField(
         upload_to='sound/%Y/%m/%d',
         verbose_name='Трек',
-        blank=True
+        blank=True,
+        db_index=True
     )
 
     cat = models.ForeignKey(
